@@ -6,12 +6,14 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateMovieDto, ParamIdDto, UpdateMovieDto } from './movies.dto';
 import { MoviesService } from './movies.service';
 import { ResponseObject } from '../abstract/response.object';
 import { PaginationDto } from '../abstract/pagination.dto';
 import { Movie } from './movies.shema';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('movies')
 export class MoviesController {
@@ -31,6 +33,7 @@ export class MoviesController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('')
   async createMovie(
     @Body() movie: CreateMovieDto,
@@ -42,6 +45,7 @@ export class MoviesController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async updateMovie(
     @Param() param: ParamIdDto,
