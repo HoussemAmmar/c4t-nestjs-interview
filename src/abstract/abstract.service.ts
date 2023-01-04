@@ -62,8 +62,8 @@ export abstract class AbstractService<T extends AbstractModel> {
 
   async find(
     filterQuery: FilterQuery<T>,
-    projection?: any | null,
     options?: QueryOptions | null,
+    projection?: any | null,
     sortField?: any,
   ): Promise<T[]> {
     let data;
