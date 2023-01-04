@@ -10,3 +10,14 @@ export class SignUpWithEmailAndPasswordDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class LoginWithEmailAndPasswordDto {
+  @IsEmail()
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}

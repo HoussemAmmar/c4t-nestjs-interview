@@ -1,4 +1,9 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AbstractService } from '../abstract/abstract.service';
 import { Auth } from './auth.schema';
 import { InjectModel } from '@nestjs/mongoose';
@@ -8,7 +13,10 @@ import { Logger } from 'winston';
 import { AccessTokenResponseType } from '../types/auth.types';
 import * as crypto from 'crypto';
 import { JwtService } from '@nestjs/jwt';
-import { SignUpWithEmailAndPasswordDto } from './auth.dto';
+import {
+  LoginWithEmailAndPasswordDto,
+  SignUpWithEmailAndPasswordDto,
+} from './auth.dto';
 
 @Injectable()
 export class AuthService extends AbstractService<Auth> {
@@ -44,6 +52,32 @@ export class AuthService extends AbstractService<Auth> {
     });
     const access_token = this.accessToken(auth);
     return { access_token };
+  }
+
+  async loginWithEmailAndPassword(
+    loginWithEmailAndPasswordDto: LoginWithEmailAndPasswordDto,
+  ): Promise<AccessTokenResponseType> {
+    const auth = await this.findOne(
+      { email: loginWithEmailAndPasswordDto.email },
+      null,
+      {
+        collation: { locale: 'en', strength: 2 },
+      },
+    );
+    if (!auth) throw new BadRequestException('INVALID_EMAIL');
+    try {
+      this.verifyHash(auth.password, loginWithEmailAndPasswordDto.password);
+    } catch (e) {
+      throw new BadRequestException('WRONG_PASSWORD');
+    }
+
+    const access_token = this.accessToken(auth);
+    return { access_token };
+  }
+
+  verifyHash(hashedToken: string, token: string) {
+    const newHashedRefreshToken = this.hash(token);
+    if (newHashedRefreshToken != hashedToken) throw new UnauthorizedException();
   }
 
   hash(token: string) {
