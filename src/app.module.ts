@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config'; // import { validateEnv } from '.
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       ],
     }),
     MoviesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
