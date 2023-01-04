@@ -7,5 +7,3 @@ export class ResponseObject<T> {
     this.message = message;
   }
 }
-
-export class EmptyObject {}
