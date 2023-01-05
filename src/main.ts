@@ -15,8 +15,8 @@ async function bootstrap() {
   // Enable swagger
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Lovester - Auth MS ')
-    .setDescription('Lovester - Auth MS API description')
+    .setTitle('C4T-Nestjs-Interview')
+    .setDescription('C4T-Nestjs-Interview description')
     .setVersion('0.0.1')
     .build();
   const document = SwaggerModule.createDocument(app, config, {
