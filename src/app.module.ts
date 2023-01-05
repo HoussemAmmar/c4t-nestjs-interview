@@ -8,10 +8,11 @@ import * as winston from 'winston';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { JwtStrategy } from './guards/jwt.strategy';
+import { validateEnv } from './env.validation';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ validate: validateEnv, isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URL),
     WinstonModule.forRoot({
       handleExceptions: true,
