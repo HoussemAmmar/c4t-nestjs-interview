@@ -6,12 +6,22 @@ import {
   LoginWithEmailAndPasswordDto,
   SignUpWithEmailAndPasswordDto,
 } from './auth.dto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { apiResponse } from '../swagger/api-response.schema';
+import { AccessTokenResponse } from '../swagger/response-types/auth-response.type';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('sign-up')
+  @ApiOperation({
+    operationId: 'Sign Up',
+  })
+  @ApiResponse(
+    apiResponse(200, `SIGNUP_SUCCEEDED`, 'object', AccessTokenResponse),
+  )
+  @ApiResponse(apiResponse(400, `EMAIL_ALREADY_USED`))
   async signUpWithEmailAndPassword(
     @Body()
     createUserWithEmailAndPasswordDto: SignUpWithEmailAndPasswordDto,
@@ -23,6 +33,13 @@ export class AuthController {
   }
 
   @Post('login')
+  @ApiOperation({
+    operationId: 'login',
+  })
+  @ApiResponse(
+    apiResponse(200, `LOGIN_SUCCEEDED`, 'object', AccessTokenResponse),
+  )
+  @ApiResponse(apiResponse(400, `INVALID_EMAIL or WRONG_PASSWORD`))
   async loginWithEmailAndPassword(
     @Body() loginWithEmailAndPasswordDto: LoginWithEmailAndPasswordDto,
   ): Promise<ResponseObject<AccessTokenResponseType>> {
