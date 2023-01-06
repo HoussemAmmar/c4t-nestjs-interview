@@ -25,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('', app, document, {
     swaggerUrl: 'json',
   });
-  await app.listen(process.env.DEFAULT_PORT || 3000, '0.0.0.0');
+  await app.listen(process.env.PORT || 3000, '0.0.0.0');
 }
 
 bootstrap();
