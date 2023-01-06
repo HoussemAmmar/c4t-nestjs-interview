@@ -10,6 +10,7 @@ import { MoviesModule } from '../src/movies/movies.module';
 import { AuthModule } from '../src/auth/auth.module';
 import { MoviesService } from '../src/movies/movies.service';
 import { rootMongooseTestModule } from './utils/mongooseTestModule';
+import { JwtModule } from '@nestjs/jwt';
 
 export class BeforeAll {
   public moviesService: MoviesService;
@@ -25,7 +26,10 @@ export class BeforeAll {
     this.mongod = await MongoMemoryServer.create();
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [
-        ConfigModule.forRoot({ validate: validateEnv, isGlobal: true }),
+        ConfigModule.forRoot({
+          validate: validateEnv,
+          isGlobal: true,
+        }),
         rootMongooseTestModule({ uri: this.mongod.getUri() }),
         WinstonModule.forRoot({
           handleExceptions: true,
@@ -41,16 +45,25 @@ export class BeforeAll {
             }),
           ],
         }),
+        JwtModule.register({
+          secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+          signOptions: {
+            expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+          },
+        }),
         MoviesModule,
         AuthModule,
       ],
     })
       .overrideGuard(JwtAuthGuard)
-      .useValue({ canActivate: () => true })
+      .useValue({
+        canActivate: (context) => {
+          const request = context.switchToHttp().getRequest();
+          console.log(request.headers.authorization);
+          return !!request.headers.authorization;
+        },
+      })
       .compile();
-    //   .overrideProvider(getDbUri())
-    //   .useValue(uri)
-    //   .compile();
 
     this.moviesService = moduleRef.get<MoviesService>(MoviesService);
 

@@ -14,5 +14,13 @@
     "createdAt": "2023-01-06T11:45:49.988Z",
     "updatedAt": "2023-01-06T11:45:49.988Z",
     "__v": 0
+  },
+  {
+    "_id": "63b813bec50d99d38b7110dc",
+    "email": "janick@gmail.com",
+    "password": "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+    "createdAt": "2023-01-06T12:27:42.634Z",
+    "updatedAt": "2023-01-06T12:27:42.634Z",
+    "__v": 0
   }
 ]

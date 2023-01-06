@@ -70,7 +70,7 @@ export class MoviesController {
     @Param() param: ParamIdDto,
     @Body() movie: UpdateMovieDto,
   ): Promise<ResponseObject<Movie>> {
-    const data = await this.moviesService.findByIdAndUpdate(param.id, movie);
+    const data = await this.moviesService.updateMovie(param.id, movie);
     return new ResponseObject(
       'UPDATED_' + this.moviesService.getModelName(),
       data,
