@@ -10,5 +10,6 @@ import { Movie, MovieSchema } from './movies.shema';
   ],
   controllers: [MoviesController],
   providers: [MoviesService],
+  exports: [MoviesService],
 })
 export class MoviesModule {}
