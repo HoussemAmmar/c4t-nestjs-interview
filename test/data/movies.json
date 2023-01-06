@@ -1,0 +1,47 @@
+[
+  {
+    "_id": "63b56acadd9dd4d55a6b8c8f",
+    "title": "Requiem of a dream",
+    "description": "string",
+    "releaseDate": "2023-01-04T12:25:02Z",
+    "rating": 4,
+    "genre": "Comedy",
+    "actorsName": [
+      "acter1",
+      "actor2"
+    ],
+    "poster": "string",
+    "createdAt": "2023-01-04T12:02:18.260Z",
+    "updatedAt": "2023-01-04T12:02:18.260Z"
+  },
+  {
+    "_id": "63b56ad9dd9dd4d55a6b8c91",
+    "title": "The shining",
+    "description": "string",
+    "releaseDate": "2023-01-04T11:25:02Z",
+    "rating": 4,
+    "genre": "Comedy",
+    "actorsName": [
+      "acter1",
+      "actor2"
+    ],
+    "poster": "string",
+    "createdAt": "2023-01-04T12:02:33.846Z",
+    "updatedAt": "2023-01-04T12:02:33.846Z"
+  },
+  {
+    "_id": "63b56ae7dd9dd4d55a6b8c93",
+    "title": "A Clock work orange",
+    "description": "string",
+    "releaseDate": "1990-01-04T00:00:00Z",
+    "rating": 4,
+    "genre": "Comedy",
+    "actorsName": [
+      "acter1",
+      "actor2"
+    ],
+    "poster": "Casino",
+    "createdAt": "2023-01-04T12:02:47.176Z",
+    "updatedAt": "2023-01-04T12:02:47.176Z"
+  }
+]
