@@ -36,7 +36,7 @@ export class CreateMovieDto {
   @IsNotEmpty()
   @IsDateString()
   @ApiProperty()
-  releaseDate: Date;
+  releaseDate: string;
 
   @IsNotEmpty()
   @IsNumber()
@@ -48,7 +48,7 @@ export class CreateMovieDto {
   @IsNotEmpty()
   @IsEnum(GenreEnum)
   @ApiProperty()
-  genre: GenreEnum;
+  genre: string;
 
   @IsArray()
   @IsString({ each: true })
@@ -80,7 +80,7 @@ export class UpdateMovieDto {
   @IsNotEmpty()
   @IsDateString()
   @ApiProperty()
-  releaseDate: Date;
+  releaseDate: string;
 
   @IsOptional()
   @IsNotEmpty()
@@ -94,7 +94,7 @@ export class UpdateMovieDto {
   @IsNotEmpty()
   @IsEnum(GenreEnum)
   @ApiProperty()
-  genre: GenreEnum;
+  genre: string;
 
   @IsOptional()
   @IsArray()

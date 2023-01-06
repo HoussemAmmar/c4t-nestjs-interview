@@ -1,6 +1,6 @@
 export enum GenreEnum {
   Comedy = 'Comedy',
-  Animation = 'drafted',
-  Thriller = 'ongoing',
+  Animation = 'Animation',
+  Thriller = 'Thriller',
   Drama = 'Drama',
 }

@@ -7,7 +7,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
       const client = await MongoClient.connect(options.uri);
-      const db = client.db('c4t-test');
+      const db = client.db('c4t-test_e2e');
 
       const moviesJson = fs.readFileSync(
         path.resolve(__dirname, '../data/movies.json'),
@@ -38,7 +38,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 
       await client.close();
 
-      options.uri += 'c4t-test';
+      options.uri += 'c4t-test_e2e';
       return options;
     },
   });

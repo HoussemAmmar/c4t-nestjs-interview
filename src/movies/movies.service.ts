@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { AbstractService } from '../abstract/abstract.service';
 import { Movie } from './movies.shema';
@@ -18,7 +18,7 @@ export class MoviesService extends AbstractService<Movie> {
     super(userModel, logger);
   }
 
-  async createMovie(@Body() movie: CreateMovieDto): Promise<Movie> {
+  async createMovie(movie: CreateMovieDto): Promise<Movie> {
     if (new Date(movie.releaseDate) > new Date()) {
       throw new BadRequestException('Release date must be in the past');
     }
