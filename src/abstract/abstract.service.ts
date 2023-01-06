@@ -17,12 +17,12 @@ import {
 import { Logger } from 'winston';
 
 export abstract class AbstractService<T extends AbstractModel> {
+  protected abstract modelName;
+
   protected constructor(
     private model: Model<T>,
     private readonly loggerWinston: Logger,
   ) {}
-
-  protected abstract modelName;
 
   getModelName(): string {
     return this.modelName.toUpperCase();
@@ -75,17 +75,6 @@ export abstract class AbstractService<T extends AbstractModel> {
       throw new InternalServerErrorException(e.message);
     }
     return data;
-  }
-
-  async count(
-    filter: FilterQuery<T>,
-    options?: QueryOptions | null,
-  ): Promise<number> {
-    try {
-      return await this.model.find(filter, options).count();
-    } catch (e) {
-      throw new InternalServerErrorException(e.message);
-    }
   }
 
   async create(model: any): Promise<T> {
@@ -152,38 +141,11 @@ export abstract class AbstractService<T extends AbstractModel> {
     } else return data;
   }
 
-  async findOneAndUpdate(
-    filterQuery: FilterQuery<T>,
-    updateQuery: UpdateQuery<T>,
-    options: QueryOptions = { new: true },
-  ): Promise<T> {
-    const data = await this.model.findOneAndUpdate(
-      filterQuery,
-      updateQuery,
-      options,
-    );
-
-    return data as T;
-  }
-
   async findByIdAndDelete(id: Types.ObjectId): Promise<T> {
     const data = await this.model.findByIdAndDelete(id);
     if (!data) {
       throw new NotFoundException(
         `NOT_FOUND_${this.getModelName()} ID-(${id})`,
-      );
-    }
-
-    return data;
-  }
-
-  async findOneAndDelete(filterQuery: FilterQuery<T>): Promise<T> {
-    const data = this.model.findOneAndDelete(filterQuery);
-    if (!data) {
-      throw new NotFoundException(
-        `NOT_FOUND_${this.getModelName()} FILTER-${JSON.stringify(
-          filterQuery,
-        )}`,
       );
     }
 

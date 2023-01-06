@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { SchemaTypes, Types } from 'mongoose';
+import { SchemaTypes } from 'mongoose';
 import { AbstractModel } from '../abstract/abstract.model';
 
 @Schema({
@@ -8,14 +8,11 @@ import { AbstractModel } from '../abstract/abstract.model';
   autoCreate: true,
 })
 export class Auth extends AbstractModel {
-  @Prop({
-    required: true,
-  })
+  @Prop({ required: true })
   email: string;
 
   @Prop({ type: SchemaTypes.String, required: true })
   password: string;
-
 }
 
 const AuthSchema = SchemaFactory.createForClass(Auth);

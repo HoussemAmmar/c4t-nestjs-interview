@@ -5,7 +5,7 @@ import { getRandomString } from './utils/test.utils';
 
 jest.setTimeout(300000);
 
-describe('Movie e2e test', () => {
+describe('Movie e2e test_e2e', () => {
   let app;
   let server: BeforeAll;
   let jwtToken;
